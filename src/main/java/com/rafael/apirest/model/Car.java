@@ -6,10 +6,15 @@ import java.util.Objects;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 @Document(collection="cars")
 public class Car implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	@JsonProperty("_id")
 	@Id
 	private String id;
 	private String title;
@@ -88,5 +93,10 @@ public class Car implements Serializable {
 			return false;
 		Car other = (Car) obj;
 		return Objects.equals(id, other.id);
+	}
+
+	@Override
+	public String toString() {
+		return "Car [id=" + id + ", title=" + title + ", brand=" + brand + ", price=" + price + ", age=" + age + "]";
 	}
 }

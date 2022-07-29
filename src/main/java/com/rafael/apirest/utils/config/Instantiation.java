@@ -1,4 +1,4 @@
-package com.rafael.apirest.config;
+package com.rafael.apirest.utils.config;
 
 import java.util.Arrays;
 
@@ -16,7 +16,7 @@ public class Instantiation implements CommandLineRunner {
 	private CarRepository repository;
 
 	@Override
-	public void run(String... args) throws Exception {
+	public void run(String... args) throws Exception {		
 		
 		repository.deleteAll();
 		
