@@ -1,6 +1,7 @@
 package com.rafael.apirest.dto;
 
 import java.io.Serializable;
+import java.util.Optional;
 
 import com.rafael.apirest.model.Car;
 
@@ -24,6 +25,9 @@ public class CarDTO implements Serializable {
 		age = obj.getAge();
 	}
 	
+	public CarDTO(Optional<Car> obj) {
+	}
+
 	public String getId() {
 		return id;
 	}
