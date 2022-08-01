@@ -14,7 +14,7 @@ import com.rafael.apirest.model.Car;
 import com.rafael.apirest.services.CarService;
 
 @RestController
-@RequestMapping("/api/cars")
+@RequestMapping("/api")
 public class CarController {
 	
 	@Autowired
@@ -22,7 +22,7 @@ public class CarController {
 	
 	@GetMapping("/listCars")
 	public ResponseEntity<List<CarDTO>> findAll() {		
-		List<Car> list = service.getApiClient();
+		List<Car> list = service.findAll();
 		
 		List<CarDTO> listDto = list.stream().map(x -> new CarDTO(x)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(listDto);
