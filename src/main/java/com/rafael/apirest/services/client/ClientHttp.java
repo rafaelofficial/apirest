@@ -9,12 +9,11 @@ import com.rafael.apirest.model.Car;
 
 public class ClientHttp {
 	
+	RestTemplate restTemplate = new RestTemplate();
+	
 	// consume external API 
-	public List<Car> getData(String url) {
-		
-		RestTemplate restTemplate = new RestTemplate();
+	public List<Car> getDataApi(String url) {
 		Car[] listCar = restTemplate.getForEntity(url, Car[].class).getBody();
-		
 		return Arrays.asList(listCar);
 	}
 }

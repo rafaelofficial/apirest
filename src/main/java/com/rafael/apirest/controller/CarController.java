@@ -21,27 +21,28 @@ import com.rafael.apirest.services.CarService;
 @RestController
 @RequestMapping("/api")
 public class CarController {
-	
+
 	@Autowired
 	private CarService service;
-	
+
 	@GetMapping("/listCars")
-	public ResponseEntity<List<CarDTO>> findAll() {		
-		List<Car> list = service.findAll();
-		
+	public ResponseEntity<List<CarDTO>> findAll(Car obj) {
+		List<Car> list = service.getDataApi(obj);
+		list = service.findAll();
 		List<CarDTO> listDto = list.stream().map(x -> new CarDTO(x)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(listDto);
 	}
-	
+
 	@GetMapping("/listCars/{id}")
 	public ResponseEntity<CarDTO> findById(@PathVariable String id) {
 		return service.findById(id).map(obj -> ResponseEntity.ok().body(new CarDTO(obj)))
-                .orElse(ResponseEntity.notFound().build());
+				.orElse(ResponseEntity.notFound().build());
 	}
-	
+
 	@PostMapping("/createCar")
 	public ResponseEntity<Void> insert(@RequestBody CarDTO objDto) {
 		Car obj = service.fromDTO(objDto);
+		obj = service.setDataApi(obj);
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();

@@ -20,15 +20,12 @@ public class InstantiationConfig implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		
-		// make a connection HTTP and get the API
-		var properties = getProps();
-		
-		// get URL on application.properties
-		var url = properties.getProperty("url");
-		var http = new ClientHttp();
-		
+		Properties properties = InstantiationConfig.getProps();
+		String url = properties.getProperty("url");
+		ClientHttp http = new ClientHttp();
+
 		// save all data of API from database (MongoDB)
-		repository.saveAll(http.getData(url));
+		repository.saveAll(http.getDataApi(url));
 	}
 	
 	// get file of configuration
