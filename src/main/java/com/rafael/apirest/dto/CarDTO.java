@@ -25,7 +25,7 @@ public class CarDTO implements Serializable {
 		age = obj.getAge();
 	}
 	
-	public CarDTO(Optional<Car> obj) {
+	public CarDTO(Optional<String> obj) {
 	}
 
 	public String getId() {

@@ -74,10 +74,6 @@ public class Car implements Serializable {
 		this.age = age;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -99,4 +95,6 @@ public class Car implements Serializable {
 	public String toString() {
 		return "Car [id=" + id + ", title=" + title + ", brand=" + brand + ", price=" + price + ", age=" + age + "]";
 	}
+
+
 }

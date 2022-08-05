@@ -17,13 +17,13 @@ import org.springframework.web.client.RestTemplate;
 import com.rafael.apirest.dto.CarDTO;
 import com.rafael.apirest.model.Car;
 import com.rafael.apirest.repository.CarRepository;
-import com.rafael.apirest.utils.config.InstantiationConfig;
+import com.rafael.apirest.utils.config.PropertiesConfig;
 
 @Service
 public class CarService {
 	
 	//get URL on application.properties
-	Properties properties = InstantiationConfig.getProps();
+	Properties properties = PropertiesConfig.getProps();
 	String url = properties.getProperty("url");
 	
 	// create an instance of RestTemplate
@@ -59,8 +59,8 @@ public class CarService {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
 		headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-
 		ResponseEntity<Car> response = restTemplate.postForEntity(url, obj, Car.class);
+		
 		return new ResponseEntity<Car>(response.getBody(), headers, HttpStatus.CREATED).getBody();
 	}
 }
