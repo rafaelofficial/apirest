@@ -26,27 +26,27 @@ public class CarController {
 	final Logger logger = Logger.getLogger(CarController.class);
 
 	@Autowired
-	private CarService service;
+	private CarService carService;
 	
 
 	@GetMapping("/listCars")
 	public ResponseEntity<List<CarDTO>> findAll() {
-		List<Car> list = service.findAll();
+		List<Car> list = carService.findAll();
 		List<CarDTO> listDto = list.stream().map(x -> new CarDTO(x)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(listDto);
 	}
 
 	@GetMapping("/listCars/{id}")
 	public ResponseEntity<CarDTO> findById(@PathVariable String id) {
-		return service.findById(id).map(obj -> ResponseEntity.ok().body(new CarDTO(obj)))
+		return carService.findById(id).map(obj -> ResponseEntity.ok().body(new CarDTO(obj)))
 				.orElse(ResponseEntity.notFound().build());
 	}
 
 	@PostMapping("/createCar")
 	public ResponseEntity<Void> insert(@RequestBody CarDTO objDto) {
-		Car obj = service.fromDTO(objDto);
-		obj = service.insertNewCar(obj);
-		obj = service.insert(obj);
+		Car obj = carService.fromDTO(objDto);
+		obj = carService.insertNewCar(obj);
+		obj = carService.insert(obj);
 		logger.info("Car created successfully");
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();

@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,8 +34,7 @@ public class CarLoggingController {
 	private CarLoggingRepository carLoggingRepository;
 
 	@GetMapping("/logs")
-	public List<CarLogging> logsOfCars(CarLogging obj) {
-		
+	public ResponseEntity<List<CarLogging>> logsOfCars(CarLogging obj) {
 		List<CarLogging> listOfLogs = carLoggingService.findAll(obj);
 		List<Car> list = carService.findAll();
 		// create object of log
@@ -44,6 +44,6 @@ public class CarLoggingController {
 			carLoggingRepository.save(obj);
 		});
 		logger.info("Last car in the queue: " + obj);
-		return listOfLogs;
+		return ResponseEntity.ok().body(listOfLogs);
 	}
 }

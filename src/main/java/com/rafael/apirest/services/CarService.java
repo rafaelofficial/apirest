@@ -30,18 +30,18 @@ public class CarService {
 	RestTemplate restTemplate = new RestTemplate();
 
 	@Autowired
-	private CarRepository repository;
+	private CarRepository carRepository;
 	
 	public List<Car> findAll() {
-		return repository.findAll();
+		return carRepository.findAll();
 	}
 
 	public Optional<Car> findById(String id) {
-		return repository.findById(id);
+		return carRepository.findById(id);
 	}
 
 	public Car insert(Car obj) {
-		return repository.insert(obj);
+		return carRepository.insert(obj);
 	}
 
 	// get from CarDTO and instance in Car
