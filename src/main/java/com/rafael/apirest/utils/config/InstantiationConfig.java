@@ -21,9 +21,9 @@ public class InstantiationConfig implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		// instance of objects
 		Car obj = new Car();
-		carService.getDataApi(obj);
+		carService.getfindAllCars(obj);
 
 		// save all data of API from database (MongoDB)
-		carRepository.saveAll(carService.getDataApi(obj));
+		carRepository.saveAll(carService.getfindAllCars(obj));
 	}
 }

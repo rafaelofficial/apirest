@@ -36,15 +36,13 @@ public class CarLoggingController {
 	public List<CarLogging> logsOfCars(CarLogging obj) {
 		
 		List<CarLogging> listOfLogs = carLoggingService.findAll(obj);
-		// instance new object
 		List<Car> list = carService.findAll();
-
 		// create object of log
-		for (Car cars : list) {
+		list.forEach(cars -> {
 			obj.setCarId(cars.getId());
 			obj.setDataHora(dateAndHour);
 			carLoggingRepository.save(obj);
-		}
+		});
 		logger.info("Last car in the queue: " + obj);
 		return listOfLogs;
 	}

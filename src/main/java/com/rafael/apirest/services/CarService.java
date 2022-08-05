@@ -49,12 +49,12 @@ public class CarService {
 		return new Car(objDto.getId(), objDto.getTitle(), objDto.getBrand(), objDto.getPrice(), objDto.getAge());
 	}
 	
-	public List<Car> getDataApi(Car obj) {
+	public List<Car> getfindAllCars(Car obj) {
 		Car[] listCar = restTemplate.getForObject(url, Car[].class);
 		return Arrays.asList(listCar);
 	}
 	
-	public Car setDataApi(Car obj) {
+	public Car insertNewCar(Car obj) {
 		// create headers
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);

@@ -45,7 +45,7 @@ public class CarController {
 	@PostMapping("/createCar")
 	public ResponseEntity<Void> insert(@RequestBody CarDTO objDto) {
 		Car obj = service.fromDTO(objDto);
-		obj = service.setDataApi(obj);
+		obj = service.insertNewCar(obj);
 		obj = service.insert(obj);
 		logger.info("Car created successfully");
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
