@@ -11,39 +11,39 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rafael.apirest.model.Car;
-import com.rafael.apirest.model.LogCar;
-import com.rafael.apirest.repository.LogCarRepository;
+import com.rafael.apirest.model.CarLogging;
+import com.rafael.apirest.repository.CarLoggingRepository;
 import com.rafael.apirest.services.CarService;
-import com.rafael.apirest.services.LogCarService;
+import com.rafael.apirest.services.CarLoggingService;
 
 @RestController
 @RequestMapping("/api")
-public class LogCarController {
+public class CarLoggingController {
 
-	final Logger logger = Logger.getLogger(LogCarController.class);
+	final Logger logger = Logger.getLogger(CarLoggingController.class);
 	String dateAndHour = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
 
 	@Autowired
-	private CarService service;
+	private CarService carService;
 
 	@Autowired
-	private LogCarService logCarService;
+	private CarLoggingService carLoggingService;
 
 	@Autowired
-	private LogCarRepository logCarRepository;
+	private CarLoggingRepository carLoggingRepository;
 
 	@GetMapping("/logs")
-	public List<LogCar> logging(LogCar obj) {
+	public List<CarLogging> logsOfCars(CarLogging obj) {
 		
-		List<LogCar> listOfLogs = logCarService.findAll(obj);
+		List<CarLogging> listOfLogs = carLoggingService.findAll(obj);
 		// instance new object
-		List<Car> list = service.findAll();
+		List<Car> list = carService.findAll();
 
 		// create object of log
 		for (Car cars : list) {
 			obj.setCarId(cars.getId());
 			obj.setDataHora(dateAndHour);
-			logCarRepository.save(obj);
+			carLoggingRepository.save(obj);
 		}
 		logger.info("Last car in the queue: " + obj);
 		return listOfLogs;

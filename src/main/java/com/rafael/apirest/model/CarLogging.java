@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Document(collection = "logs")
-public class LogCar implements Serializable {
+public class CarLogging implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@JsonProperty("_id")
@@ -24,10 +24,10 @@ public class LogCar implements Serializable {
 	@JsonProperty("car_id")
 	private String carId;
 
-	public LogCar() {
+	public CarLogging() {
 	}
 
-	public LogCar(String id, String dataHora, String carId) {
+	public CarLogging(String id, String dataHora, String carId) {
 		this.id = id;
 		this.dataHora = dataHora;
 		this.carId = carId;
@@ -70,7 +70,7 @@ public class LogCar implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		LogCar other = (LogCar) obj;
+		CarLogging other = (CarLogging) obj;
 		return Objects.equals(id, other.id);
 	}
 

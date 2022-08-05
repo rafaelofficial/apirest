@@ -5,16 +5,16 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.rafael.apirest.model.LogCar;
-import com.rafael.apirest.repository.LogCarRepository;
+import com.rafael.apirest.model.CarLogging;
+import com.rafael.apirest.repository.CarLoggingRepository;
 
 @Service
-public class LogCarService {
+public class CarLoggingService {
 
 	@Autowired
-	private LogCarRepository repository;
+	private CarLoggingRepository repository;
 
-	public List<LogCar> findAll(LogCar obj) {
+	public List<CarLogging> findAll(CarLogging obj) {
 		return repository.findAll();
 	}
 }

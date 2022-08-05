@@ -2,19 +2,19 @@ package com.rafael.apirest.dto;
 
 import java.io.Serializable;
 
-import com.rafael.apirest.model.LogCar;
+import com.rafael.apirest.model.CarLogging;
 
-public class LogCarDTO implements Serializable {
+public class CarLoggingDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private String id;
 	private String dataHora;
 	private String carId;
 
-	public LogCarDTO() {
+	public CarLoggingDTO() {
 	}
 	
-	public LogCarDTO(LogCar obj) {
+	public CarLoggingDTO(CarLogging obj) {
 		id = obj.getId();
 		dataHora = obj.getDataHora();
 		carId = obj.getCarId();

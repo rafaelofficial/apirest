@@ -12,18 +12,18 @@ import com.rafael.apirest.services.CarService;
 public class InstantiationConfig implements CommandLineRunner {
 
 	@Autowired
-	private CarRepository repository;
+	private CarRepository carRepository;
 
 	@Autowired
-	private CarService service;
+	private CarService carService;
 
 	@Override
 	public void run(String... args) throws Exception {
 		// instance of objects
 		Car obj = new Car();
-		service.getDataApi(obj);
+		carService.getDataApi(obj);
 
 		// save all data of API from database (MongoDB)
-		repository.saveAll(service.getDataApi(obj));
+		carRepository.saveAll(carService.getDataApi(obj));
 	}
 }
