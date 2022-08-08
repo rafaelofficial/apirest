@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import org.apache.log4j.Logger;
 import com.rafael.apirest.dto.CarDTO;
 import com.rafael.apirest.model.Car;
 import com.rafael.apirest.services.CarService;
@@ -22,12 +21,9 @@ import com.rafael.apirest.services.CarService;
 @RestController
 @RequestMapping("/api")
 public class CarController {
-	
-	final Logger logger = Logger.getLogger(CarController.class);
 
 	@Autowired
 	private CarService carService;
-	
 
 	@GetMapping("/listCars")
 	public ResponseEntity<List<CarDTO>> findAll() {
@@ -47,7 +43,6 @@ public class CarController {
 		Car obj = carService.fromDTO(objDto);
 		obj = carService.insertNewCar(obj);
 		obj = carService.insert(obj);
-		logger.info("Car created successfully");
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}

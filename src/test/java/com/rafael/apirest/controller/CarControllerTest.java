@@ -21,7 +21,7 @@ public class CarControllerTest {
 	Car car = new Car();
 
 	@Test
-	void insert() {
+	void whenCreateNewCar_thenCreated() {
 		car.setId("1234568790auskpaa0");
 		car.setTitle("Gol");
 		car.setBrand("Volkswagem");
@@ -31,13 +31,13 @@ public class CarControllerTest {
 	}
 
 	@Test
-	void findAll() {
+	void whenGetAllCars_thenOK() {
 		List<Car> list = carRepository.findAll();
 		assertThat(list).size().isGreaterThan(0);
 	}
 
 	@Test
-	void findById() {
+	void whenGetCarsById_thenOK() {
 		car = carRepository.findById("1234568790auskpaa0").get();
 		Assertions.assertEquals("1234568790auskpaa0", car.getId());
 	}

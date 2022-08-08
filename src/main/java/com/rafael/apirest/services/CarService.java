@@ -17,27 +17,29 @@ import org.springframework.web.client.RestTemplate;
 import com.rafael.apirest.dto.CarDTO;
 import com.rafael.apirest.model.Car;
 import com.rafael.apirest.repository.CarRepository;
-import com.rafael.apirest.utils.config.PropertiesConfig;
+import com.rafael.apirest.services.exceptions.ControllerNotFoundException;
+import com.rafael.apirest.utils.LoadProperties;
 
 @Service
 public class CarService {
-	
-	//get URL on application.properties
-	Properties properties = PropertiesConfig.getProps();
+
+	// get URL on application.properties
+	Properties properties = LoadProperties.getProps();
 	String url = properties.getProperty("url");
-	
+
 	// create an instance of RestTemplate
 	RestTemplate restTemplate = new RestTemplate();
 
 	@Autowired
 	private CarRepository carRepository;
-	
+
 	public List<Car> findAll() {
 		return carRepository.findAll();
 	}
 
 	public Optional<Car> findById(String id) {
-		return carRepository.findById(id);
+		Optional<Car> obj = carRepository.findById(id);
+		return Optional.of(obj.orElseThrow(() -> new ControllerNotFoundException(id)));
 	}
 
 	public Car insert(Car obj) {
@@ -48,19 +50,18 @@ public class CarService {
 	public Car fromDTO(CarDTO objDto) {
 		return new Car(objDto.getId(), objDto.getTitle(), objDto.getBrand(), objDto.getPrice(), objDto.getAge());
 	}
-	
+
 	public List<Car> getfindAllCars(Car obj) {
 		Car[] listCar = restTemplate.getForObject(url, Car[].class);
 		return Arrays.asList(listCar);
 	}
-	
+
 	public Car insertNewCar(Car obj) {
 		// create headers
 		HttpHeaders headers = new HttpHeaders();
+		ResponseEntity<Car> response = restTemplate.postForEntity(url, obj, Car.class);
 		headers.setContentType(MediaType.APPLICATION_JSON);
 		headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-		ResponseEntity<Car> response = restTemplate.postForEntity(url, obj, Car.class);
-		
 		return new ResponseEntity<Car>(response.getBody(), headers, HttpStatus.CREATED).getBody();
 	}
 }

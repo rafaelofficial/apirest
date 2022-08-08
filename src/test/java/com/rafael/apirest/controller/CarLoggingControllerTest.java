@@ -14,7 +14,7 @@ public class CarLoggingControllerTest {
 	private CarLoggingRepository carLoggingRepository;
 
 	@Test
-	void logsOfCars() {
+	void whenGetAllLoggingOfCars_thenOK() {
 		var carLogging = new CarLogging();
 		carLogging.setId("1234567890abc");
 		carLogging.setCarId("abc0987654321");
